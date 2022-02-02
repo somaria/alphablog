@@ -1,6 +1,10 @@
 <h1>Alpha Users</h1>
 
 
+ <div class="flickr_pagination">
+    <%= will_paginate @users, :container => false %>
+  </div>
+  
 <table>
     <thead>
     <tr>
@@ -13,7 +17,7 @@
         <th >Time Ago</th>
     </tr>
     </thead>
-
+   
     <tbody>
     <% @users.each do |user| %>
         <tr>

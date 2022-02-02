@@ -1,5 +1,12 @@
 <h1>Article Index Page</h1>
+
+<div class="flickr_pagination">
+    <%= will_paginate @articles, :container => false %>
+  </div>
 <%= render 'article' %>
+<div class="flickr_pagination">
+    <%= will_paginate @articles, :container => false %>
+</div>
 
 <%= link_to 'Go To Article Listing', articles_path %>
 <%= link_to 'Go To User Listing', users_path %>
