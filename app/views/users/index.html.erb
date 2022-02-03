@@ -26,7 +26,10 @@
         <td><%= link_to gravatar_for(user, size: 60), user %></td>
         <td><%= user.articles.count %></td>
         <td><%= link_to "View Profile", user_path(user) %></td>
-        <td><%= link_to "Edit Profile", edit_user_path(user) %></td>
+
+        <% if logged_in? && user == current_user %>
+            <td><%= link_to "Edit Profile", edit_user_path(user) %></td>
+        <% end %>
         <td><%= time_ago_in_words(user.created_at) %></td>
         </tr>
         <% end %>
@@ -39,5 +42,12 @@
 <%= link_to 'Go To User Listing', users_path %>
 <%= link_to 'Go To Sign Up', signup_path %>
 <%= link_to 'About', about_path %>
+
+<% if logged_in? %>
+    <%= link_to current_user.username, user_path(current_user) %>
+    <%= link_to 'Logout', logout_path, method: :delete %>
+<% else %>
+    <%= link_to 'Login', login_path %>
+<% end %>
 
 
