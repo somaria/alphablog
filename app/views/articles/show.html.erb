@@ -6,7 +6,7 @@
 <h2>Title      :<%= @article.title %></h2>
 <h2>Description     :<%= @article.description %></h2>
 
-<% if logged_in? && @article.user == current_user %>
+<% if logged_in? && (@article.user == current_user || current_user.admin? ) %>
     <%= link_to 'Edit', edit_article_path(@article) %> |
     <%= link_to 'Delete', article_path(@article), method: :delete, data: { confirm: "Are you sure?"} %> |
 <% end %>

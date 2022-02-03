@@ -14,6 +14,7 @@
         <th>Count</th>
         <th >Profile</th>
         <th >Edit Profile</th>
+        <th >Delete Profile</th>
         <th >Time Ago</th>
     </tr>
     </thead>
@@ -27,9 +28,23 @@
         <td><%= user.articles.count %></td>
         <td><%= link_to "View Profile", user_path(user) %></td>
 
-        <% if logged_in? && user == current_user %>
-            <td><%= link_to "Edit Profile", edit_user_path(user) %></td>
+        <% if logged_in? %>
+            <% if user == current_user %>
+                <td><%= link_to "Edit Profile", edit_user_path(user) %></td>
+                            <% else %>
+            <td>No Edit</td>
+            <% end %>
+            <% if current_user.admin? %>
+                <td><%= link_to "Delete User", user_path(user), method: :delete, data: { confirm: "Are you sure you want to delete?"} %></td>
+            <% else %>
+            <% if user == current_user %>
+                <td><%= link_to "Delete Profile", user_path(user), method: :delete, data: { confirm: "Are you sure?"} %></td>
+            <% else %>
+                <td>No Delete</td>
+            <% end %>
+            <% end %>
         <% end %>
+        
         <td><%= time_ago_in_words(user.created_at) %></td>
         </tr>
         <% end %>
@@ -42,6 +57,7 @@
 <%= link_to 'Go To User Listing', users_path %>
 <%= link_to 'Go To Sign Up', signup_path %>
 <%= link_to 'About', about_path %>
+<%= link_to 'Home', root_path %>
 
 <% if logged_in? %>
     <%= link_to current_user.username, user_path(current_user) %>
